@@ -2,10 +2,11 @@ import { View, Text } from "react-native";
 import React from "react";
 import { Tabs } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
+import { COLORS } from "@/constants/theme";
 
 const TabLayout = () => {
   return (
-    <Tabs screenOptions={{ tabBarShowLabel: false }}>
+    <Tabs screenOptions={{ tabBarShowLabel: false, headerShown: false }}>
       <Tabs.Screen
         name="index"
         options={{
@@ -26,7 +27,9 @@ const TabLayout = () => {
         name="create"
         options={{
           tabBarIcon: ({ size, color }) => {
-            return <Ionicons name="add-circle" size={size} color={color} />;
+            return (
+              <Ionicons name="add-circle" size={size} color={COLORS.primary} />
+            );
           },
         }}
       />
