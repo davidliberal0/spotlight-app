@@ -5,7 +5,7 @@ import { Link } from "expo-router";
 export default function Index() {
   return (
     <View style={styles.container}>
-      <Link href={"/notifications"}>visit notifications screen</Link>
+      <Link href={"/notifications"}>Feed Screen with things</Link>
     </View>
   );
 }
