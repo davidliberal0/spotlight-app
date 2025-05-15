@@ -1,10 +1,32 @@
 import { COLORS } from "@/constants/theme";
 import { styles } from "@/styles/auth.styles";
+import { useSSO } from "@clerk/clerk-expo";
 import Ionicons from "@expo/vector-icons/build/Ionicons";
+import { useRouter } from "expo-router";
 import React from "react";
 import { View, Text, LogBox, Image, TouchableOpacity } from "react-native";
 
 const login = () => {
+  const { startSSOFlow } = useSSO();
+  const router = useRouter();
+
+  // function to handle sign-in via Google App
+  const handleGoogleSignIn = async () => {
+    try {
+      // OAuth Google (Single Sign On)
+      const { createdSessionId, setActive } = await startSSOFlow({
+        strategy: "oauth_google", // use google as OAuth provider
+      });
+
+      if (setActive && createdSessionId) {
+        setActive({ session: createdSessionId });
+        router.replace("/(tabs)");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <View style={styles.container}>
       {/* Brand Section */}
@@ -27,7 +49,7 @@ const login = () => {
       <View style={styles.loginSection}>
         <TouchableOpacity
           style={styles.googleButton}
-          onPress={() => console.log("Continue with Google")}
+          onPress={handleGoogleSignIn}
           activeOpacity={0.9}
         >
           <View style={styles.googleIconContainer}>
