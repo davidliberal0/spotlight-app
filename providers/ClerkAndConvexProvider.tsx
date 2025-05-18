@@ -6,7 +6,12 @@ import { ConvexProvider, ConvexReactClient } from "convex/react";
 import { ConvexProviderWithClerk } from "convex/react-clerk";
 import { EXPO_PUBLIC_CONVEX_URL } from "@env";
 
-const convex = new ConvexReactClient(EXPO_PUBLIC_CONVEX_URL);
+const convex = new ConvexReactClient(
+  process.env.EXPO_PUBLIC_CONVEX_URL! as string,
+  {
+    unsavedChangesWarning: false,
+  }
+);
 
 const ClerkAndConvexProvider = ({
   children,
